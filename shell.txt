@@ -1,0 +1,5 @@
+
+
+$HOME env var
+$SHELL env var 
+ 
