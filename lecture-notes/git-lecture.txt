@@ -1,0 +1,12 @@
+git log 
+* Tells you chronologically the changes you have made
+
+Add to staged commit 
+git add "readme.md"
+git commit -m "...." 
+
+Removing from staged commit 
+git rm --cache "readme.md"
+
+
+git branch: check the branches 
