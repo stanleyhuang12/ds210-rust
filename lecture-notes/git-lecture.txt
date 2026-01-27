@@ -8,5 +8,20 @@ git commit -m "...."
 Removing from staged commit 
 git rm --cache "readme.md"
 
+git has a hash that is 64 hexadecimal (16 possibilities a-f 0-7) which is a cryptographic hash 
+it is good guarantees to be unique for that filed. 
+
 
 git branch: check the branches 
+Creating a branch: 
+
+git branch or git branch -a to tell how many branches there are 
+git switch -c "new_branch"
+git switch "new_branch" if it exists 
+
+
+To merge back to the origin/main branch: 
+git switch "origin/main" # go back to the branch 
+git merge "new_branch" 
+
+git push origin main (this pushes to the remote repository)
