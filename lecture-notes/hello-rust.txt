@@ -1,0 +1,5 @@
+
+
+rustc main.rs: Uses the rust compiler to compile main.rs into binary files interpretable by low level machine code to do specific tasks
+
+./main (the compiled file) allows you to run and exectue the code
