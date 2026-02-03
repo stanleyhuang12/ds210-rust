@@ -27,4 +27,7 @@ git merge "new_branch"
 git push origin main (this pushes to the remote repository)
 
 HEAD points to the checked out or switched branch 
-hi
+
+git pull ... before to merged the remote update back to your main branch 
+
+git clone 
