@@ -1,0 +1,29 @@
+
+Compiler takes high level code and converts it back into machine-level code 
+
+# Language differences
+
+** Interpreted v. Compiled ** 
+Python is an interpreter language that interprets each code one by one (line by line) 
+Compiled programming code can look through all the code -> translate it to machine code ( the entire codebase )
+
+** Static or dynamic ** 
+Dynamic methods like Python checks for types during run time. Python can provide some type specifications with packages but it is not enforced.
+Whereas static methods like have strict and enforceable checks for data types before even runtime; they will check at compile time 
+
+A compiled language does not have to be statically typed and instead infer that something say 8 is of i32 
+A compiled language can make optimizations in the code because it looks at the aggregate codebase 
+
+Imperative 
+functional 
+- encapsulate everything in functions 
+- execute different functions at each step 
+- Rust has closures that does not have a normal function signature (?) 
+objective-oriented 
+declarative 
+multi-paradigm language 
+
+
+** Stack versus heap ** 
+Stack is 
+Heap is a chunk of memory 
