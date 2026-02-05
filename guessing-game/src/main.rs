@@ -1,4 +1,5 @@
 use std::io; // imports a library
+use rand::Rng;
 
 fn main() {
     println!("This is the start of a guessing game!");
@@ -6,8 +7,10 @@ fn main() {
     let trial_total = 5; 
     let true_guess = 21; 
     let mut trial_num = 0; 
+    let secret_number = rand::rng().random_range(1..=100);
     let mut guessed_values: Vec<i32> = Vec::new(); 
 
+    println!("The secret number is {}", secret_number);
     while trial_num <= trial_total {
         let mut guess = String::new();
         io::stdin().read_line(&mut guess).expect("Failed to read lines.");
