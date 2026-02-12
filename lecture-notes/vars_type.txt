@@ -60,6 +60,47 @@ Initially each character were 8 bits (byte) and represented ASCII, some numbers 
 Later, they use UTF-8 encoding to encode each string 
 
 
+Strings can be thought of as a more complex representations of characters. In Rust, string is not a native type but can be thought of as a more complicated wrapper around other data types 
+
 Strings: "hello"
-String slices: 
+String slices: &str [immutable ]
+
+Two types of string representations: 
+
+**String**: 
+String::("...")
+",,,".to_string()
+- mutable and growable 
+- built on vec<u8> which is a vector representation of the encoding that is malleable
+
+**string slices**
+"..."
+- immutable on &<u8> which is an immutable reference of the byte representations 
+
+
+
+
+
+fn main() {
+    ### STRING SLICES or STRING REFERENCES 
+    let s1 = "Hello! How are you, 🦕?";  // creates immutable borrowed reference to a string slice: `&str`
+    let s2 : &str = "Καλημέρα από την Βοστώνη και την DS210";  // here we make the type explicit
+
+    ## STRING LITERALS, DYNAMIC AND GROWABLE. I CAN ADD MORE 
+    let s3: String = "Hello! How are you" doesn't work because "..." is a string slice reference being populated in S3 which is explicitly typed as String
+
+    let s3: String = "Hello! How are you".to_string() performs a conversation of a string slice to string literal and then feeds it into s3 
+    
+    let s4: String = String::from("Hello! How are you?") the base datatype converts the string slices (immutable reference)
+
+    s1.chars() -> treat it as an array of characters or Vec<8> 
+    .nth(3) -> the 3rd value of the array
+    .unwrap() -> convert to a format I want to use 
+
+    println!("{}", s1);
+    println!("{}\n", s2);
+}
+
+
+
 
