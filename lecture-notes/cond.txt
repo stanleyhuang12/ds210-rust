@@ -1,0 +1,9 @@
+
+## Conditional statements
+
+if condition {
+    DO-SOMETHING-HERE
+    [creates a narrowed scope not accessible outside]
+} else {
+    DO-SOMETHING-ELSE-HERE
+};  Semi-colons are optional, else statements are also optional 
