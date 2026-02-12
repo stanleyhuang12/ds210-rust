@@ -33,3 +33,33 @@ Signed Integer	Signed 8 bit binary
     -3	11111101
 from the left handside we can add by 2^n where n is the place from the rightmost value 
 
+To convert a positive integer to a negative integer: we follow the twos complement procedure 
+
+Step 1: Represent in bits 
+00000111 = 2^0 + 2^1 + 2^2 = 1 + 2 + 4 = 7 
+
+Step 2: Invert the bits 
+11111000 
+
+Step 3: Add a 1 to the last bit 
+11111001 = this represents - 7 
+
+Step 4: We know the bit representation is negative because it has a leading 1 
+To read we can flip all the representations 
+
+    00000110 = 6 
+    6 + 1 = 7 
+    negate it again so that it is read as -7 
+
+
+## Character and String Data types
+
+Character: 'c' '<insert emoji>' 
+
+Initially each character were 8 bits (byte) and represented ASCII, some numbers and mathematical symbols, Roman characters, etc...
+Later, they use UTF-8 encoding to encode each string 
+
+
+Strings: "hello"
+String slices: 
+
