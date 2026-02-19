@@ -19,3 +19,52 @@ fn and(p:bool, q:bool, r:bool) -> bool {
     r // return r without the semicolon also works here
 }
 
+```rs
+fn greet_user(name: &str, time: &str)-> String {
+    let available_times:Vec<&str> = vec!["morning", "afternoon", "evening"];
+    if available_times.contains(&time) {
+        let greeting: String = format!("Good {}, {}", time, name);
+        return greeting; 
+    } else {
+        "Your time parameter does not exist in the list of available_times.".to_string()
+    }
+}
+// In the interactive demo, we need to specify an entry point as a main function so I included it // below. Since main is a function that can not return a String type.. I printed to verify that it 
+// works and it works!
+
+fn main() {
+    let res = greet_user("Dumbledore", "evening"); 
+    let res2 = greet_user("Stanley", "notmorning"); 
+    println!("{}", res)
+}
+
+```
+
+
+Function that has a *side effect* basically does some modification but does not return a value 
+
+
+&str = string slice (safest way to receive a string because it uses the string / a reference but does not allow modification )
+"whatever" is a string slice that can be converted to String via .to_string()
+
+
+The concept of ownership and borrowing in Rust: 
+
+.rev() reverses a vector /array 
+.step_by() incremental 
+
+
+Default arrays are immutable but we can do 
+```
+let mut arr = [1, 3, 5, 7]
+mut[1] = 8; 
+println!("{}", arr); 
+```
+prints [1, 8, 5, 7]
+
+
+.sort() allows us to sort alphanumerically 
+
+
+
+let arr3 : [u8;3] = [15;3];
