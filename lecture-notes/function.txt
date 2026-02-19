@@ -1,0 +1,21 @@
+
+
+Notes: 
+1. Main function is the function that the executable looks at to execute the compiled program 
+2. Exclude the semi-colon for the executable to return the value 
+
+e.g. 
+
+fn and(p:bool, q:bool, r:bool) -> bool {
+    if !p {
+        println!("p is false");
+        return false;
+    }
+    if !q {
+        println!("q is false");
+        return false;
+    }
+    println!("r is {}", r);
+    r // return r without the semicolon also works here
+}
+
