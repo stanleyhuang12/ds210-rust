@@ -9,7 +9,7 @@
 - Do something if it is relevant 
 - Syntax: |params| {the closure line}
 - Lazily evaluated. In other words, the closure does not create outputs until it is explicitly called 
-- Performs type inference once and then locks the parameter or return type to a specific typegi
+- Performs type inference once and then locks the parameter or return type to a specific typing
     
 e.g. 
 ```rust
