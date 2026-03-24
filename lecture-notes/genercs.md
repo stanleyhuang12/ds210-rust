@@ -45,3 +45,21 @@ enum Result<T, E> {
             let float = Option_f64::Some(5.0);
         }
         ```
+
+
+
+We can specify generics with specific traits
+
+```rust
+impl<T:Copy> Point<T> {
+    fn swap(&mut self) {
+        let z = self.x;
+        self.x = self.y;
+        self.y = z;
+    }
+}
+```
+
+This supports deep copies (not a clone of the stack)
+
+* You can create specialized functions after a generic functions 
