@@ -60,3 +60,39 @@ fn main() {
 
 We can search in the namespace of the module by doing `super::` [1 level up] and `super::super::` [2 levels up]
 We can return to the 1st level by calling `crate::`
+
+
+# Creating public accessor function on private data 
+```rust
+pub mod test { 
+    #[derive(Debug)]
+    pub struct Point {
+       x: i32, // makes x private 
+       pub y: i32, // makes y public so we can update via point.y but not point.x 
+    }
+
+    impl Point {
+        pub fn create(x:i32,y:i32) -> Point {
+            Point{x,y}
+        } // a public function 
+
+        pub fn update_x(*mut self, x:i32) { // we create a mutable reference so the ownership doesn't transfer to the variables inside the function 
+            self.x = x; 
+        }
+    }
+
+}
+
+use test::Point;
+
+fn main() {
+    let mut p = Point::create(2,3);
+    println!("{:?}",p);
+
+    p.x = 3;  // Error: try commenting this out
+    p.y = 4;  // Why does this work? we can access indirectly 
+    p.update_x(3); // this will work 
+    println!("{:?}",p); 
+}
+
+```
