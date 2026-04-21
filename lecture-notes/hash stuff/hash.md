@@ -30,6 +30,10 @@ Hashset (no need for buckets)
 let mapp = Hashset::new(); 
 ```
 
+### Entry API
+
+- dictionary.get(). Get an immutable reference wrapped in an option enum for the value
+- dictionary.get().or_insert(`value`). or_insert checks for the option enum, if it is `None` and not `sum`, it will insert the value.
 
 
 
