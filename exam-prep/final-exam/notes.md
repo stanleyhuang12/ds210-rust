@@ -282,7 +282,86 @@ fn main() {
     
 }
 
+
+
 ```
+
+
+```rust
+fn is_balanced(s: &str) -> bool {
+    let mut vec: Vec<char> = Vec::new(); 
+    for c in s.chars() {
+        match c {
+            '(' | '[' | '{' => vec.push(c), 
+            ')' | ']' | '}' => {
+                let counter = match c {
+                    ')' => '(', 
+                    ']' => '[', 
+                    '}' => '{', 
+                    _ => unreachable!()
+                }; 
+                // now we have to make sure the vec.pop matches the counter 
+                
+                match vec.pop() {
+                    Some(val) if val == counter => {},
+                    _ => return false
+                }
+            }, 
+            _ => {}
+        }
+    }
+    vec.is_empty()
+}
+
+fn main() {
+    let cases = ["()[]{}", "([{}])", "(]", "((()"];
+    for case in cases {
+        println!("{}", is_balanced(case)); 
+    }
+}
+
+```
+
+Implement the following:
+
+Write a function moving_avg(values: &[f64], window: usize) -> Vec<f64> that computes the rolling average over a sliding window of size window.
+Use a VecDeque<f64> to track the window.
+Only emit an average once the window is fully populated, so the output length is values.len() - window + 1 (or empty if values.len() < window).**
+Call the function from main with values = &[1.0, 2.0, 3.0, 4.0, 5.0] and window = 3, and print each result on its own line, formatted to one decimal place.
+
+Expected output:
+```rust
+use std::collections::VecDeque;
+
+fn moving_avg(values: &[f64], window: usize) -> Vec<f64> {
+    if window > values.len() {
+        return Vec::new();
+    }
+    let mut deque: VecDeque<f64> = VecDeque::new();
+    let mut running_sum: f64 = 0.;
+    let mut result: Vec<f64> = Vec::new();
+
+    for &val in values {
+        deque.push_back(val);
+        running_sum += val;
+
+        if deque.len() == window {
+            result.push(running_sum / window as f64);
+            let removed = deque.pop_front().unwrap();
+            running_sum -= removed;
+        }
+    }
+    result
+}
+
+fn main() {
+    let values = &[1.0, 2.0, 3.0, 4.0, 5.0];
+    for avg in moving_avg(values, 3) {
+        println!("{:.1}", avg);
+    }
+}
+```
+
 
 Implement the following article and tweet structs and trait:
 
