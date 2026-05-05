@@ -188,3 +188,286 @@ fn main() {
 }
 ```
 
+
+
+# Long coding challenges 
+1. 
+
+```rust 
+
+use std::collections::HashMap;
+
+fn count_word_freq(sentence: &str) -> HashMap<&str, usize> {
+    let mut hash = HashMap::new(); 
+    let word_vec = sentence.split_whitespace().collect::<Vec<&str>>(); 
+    for word in word_vec {
+        *hash.entry(word).or_insert(0) += 1;
+    }
+    hash
+}
+
+fn main() {
+    let sentence = "the quick brown fox jumps over the lazy dog the fox runs fast over the hill"; 
+    let hash = count_word_freq(sentence); 
+    println!("{:?}", hash); 
+    let mut vecs = hash.into_iter().collect::<Vec<(&str, usize)>>(); 
+    println!("{:?}", vecs); 
+
+    vecs.sort_by(|a, b| {
+        b.1.cmp(&a.1).then(a.0.cmp(b.0))
+    }); 
+    
+    for v in 0..=2 {
+        println!("{} {}", vecs[v].0, vecs[v].1); 
+    
+    }
+
+}
+```
+
+
+2. Write a program that prints, in sorted order, the values that appear in both input vectors:
+
+let a = vec![1, 2, 3, 4, 5, 6];
+let b = vec![4, 5, 6, 7, 8, 9];
+Use HashSet for the membership checks, then sort the resulting common values before printing them (one per line).
+
+```rust
+
+use std::collections::HashSet; 
+
+fn main() {
+    let a = vec![1, 2, 3, 4, 5, 6]; 
+    let b = vec![4, 5, 6, 7, 8, 9]; 
+    let ahash = a.iter().collect::<HashSet<_>>(); 
+    let bhash = b.iter().c
+    
+    ollect::<HashSet<_>>(); 
+    
+    let mut intersection: Vec<_> = ahash.intersection(&bhash).collect(); 
+    intersection.sort(); 
+    for i in intersection {
+        println!("{}", i)
+    }
+}
+
+```
+
+Build a small "grade book"
+
+Given let entries = vec![("carol", 72), ("alice", 95), ("bob", 58), ("alice", 88), ("bob", 80)];,
+insert each pair into a BTreeMap<&str, Vec<i32>> keyed by name, with the list of that student's scores as the value.
+Then iterate the map (which will give names in alphabetical order)
+and print each student's name followed by their average score, formatted to one decimal place.
+Hint: To print 1 decimal place, use {:.1} in the println! macro.
+
+Expected output:
+
+```rust
+use std::collections::BTreeMap; 
+
+fn calculate_mean_grade(vector: &Vec<i32>) -> f64 {
+    vector.iter().sum::<i32>() as f64 / vector.len() as f64
+}
+
+fn main() {
+    let entries = vec![("carol", 72), ("alice", 95), ("bob", 58), ("alice", 88), ("bob", 80)];
+    let mut map: BTreeMap<&str, Vec<i32>> = BTreeMap::new(); 
+    for (name, score) in entries {
+        map.entry(name).or_insert(Vec::new()).push(score); 
+    }
+    for (name, score) in &map {
+        println!("{} {:.1}", name, calculate_mean_grade(score)); 
+    }
+    
+}
+
+```
+
+Implement the following article and tweet structs and trait:
+
+Define a trait Summary with a single method summary(&self) -> String.
+Define two structs: Tweet { user: String, text: String } and Article { title: String, body: String }.
+Implement Summary for the two structs.
+The tweet summary should be "@user: text", and
+the article summary should be "title — first 20 chars of body"
+(use .chars().take(20).collect::<String>() to get the first 20 characters)
+In main, create:
+A Tweet with user "alice" and text "hello rust!"
+An Article with title "DS210" and body "Rust is a systems language."
+Call the summary method for each and print the result.
+Hint: Use the format! macro to create the summary strings.
+
+Expected output:
+@alice: hello rust!
+DS210 — Rust is a systems language.
+```rust
+trait Summary {
+    fn summary(&self) -> String; 
+}
+struct Tweet {
+    user: String, 
+    text: String, 
+}
+
+struct Article {
+    title: String,
+    body: String, 
+}
+
+impl Summary for Tweet {
+    fn summary(&self) -> String {
+        format!("@{}: {}", self.user, self.text)
+    }
+}
+
+impl Summary for Article {
+    fn summary(&self) -> String {
+        let blurb = self.body.chars().take(20).collect::<String>(); 
+        format!("{} – {}", self.title, blurb)
+    }
+}
+
+fn main() {
+    let tweet: Tweet = Tweet { user: String::from("alice"), text: String::from("hello rust!") }; 
+    let article: Article = Article { title: String::from("DS210"), body: String::from("Rust is a system language.") } ; 
+    println!("{}", tweet.summary()); 
+    println!("{}", article.summary()); 
+        
+}
+
+```
+
+
+Write:
+
+a function kth_largest(nums: &[i32], k: usize) -> Option<i32> that returns the k-th largest value in the slice (1-indexed).
+If k is zero or larger than the slice length, return None.
+Use a BinaryHeap to find the answer
+Call the function from main with &[7, 2, 9, 4, 11, 3] and k = 3
+Print the result with {:?}.
+Expected output:
+
+```rust
+use std::collections::BinaryHeap;
+fn kth_largest(nums: &[i32], k: usize) -> Option<i32> {
+    if k > nums.len() || k == 0  {
+        return None; 
+    }
+    let mut heap = BinaryHeap::from(nums.to_vec());
+    let mut result = None; 
+    for _ in 0..k {
+        result = heap.pop(); 
+    }
+    result
+}
+
+fn main() {
+    println!("{:?}", kth_largest(&[7, 2, 9, 4, 11, 3], 3)); 
+}
+
+```
+
+Write a program that:
+
+prints every city whose temperature is above 75°F,
+with its temperature converted to Celsius (formula: (f - 32.0) * 5.0 / 9.0),
+one per line.
+Sort the output alphabetically by city.
+Use iterator methods (filter, map, collect, sort_by_key, ...) rather than explicit loops.
+Each printed line should look like Phoenix 39.2 (temperature formatted to one decimal place).
+
+
+    reading_vec.iter().for_each(|x| println!("{} {:.1}", x.0, x.1)); 
+
+```rust
+fn main() {
+    let readings = vec![
+        ("Boston", 48.0_f64), ("Phoenix", 102.5),
+        ("Denver", 77.0), ("Miami", 88.0), ("Anchorage", 36.0),
+    ];
+    
+    let mut reading_vec = readings
+        .into_iter()
+        .filter(|(_city, temp)| *temp > 75.)
+        .map(|(city, temp)| (city, (temp - 32.0) * 5.0/9.0) )
+        .collect::<Vec<(_, _)>>(); 
+    
+    reading_vec.sort_by(|a, b| a.0.cmp(&b.0)); 
+    reading_vec.iter().for_each(|x| println!("{} {:.1}", x.0, x.1)); 
+}
+```
+
+
+
+Define a struct Rectangle { width: u32, height: u32 } with three methods:
+
+area(&self) -> u32
+perimeter(&self) -> u32
+can_hold(&self, other: &Rectangle) -> bool — returns true if self is strictly larger than other in both dimensions
+In main, create let a = Rectangle { width: 10, height: 5 }; and let b = Rectangle { width: 4, height: 3 };. Print a.area(), a.perimeter(), and a.can_hold(&b) each on their own line.
+
+```rust
+struct Rectangle { 
+    width: u32, 
+    height: u32 
+} 
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height 
+    }
+    fn perimeter(&self) -> u32 {
+        (self.width * 2) + (self.height * 2)
+    }
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        if self.area() > other.area() && self.perimeter() > other.perimeter() {
+            true
+        } else {
+            false
+        }
+    }
+}
+
+fn main() { 
+    let a = Rectangle { width: 10, height: 5 }; 
+    let b = Rectangle { width: 4, height: 3 }; 
+    println!("Area of a: {}", a.area()); 
+    println!("Perimeter of a: {}", a.perimeter()); 
+    println!("A can hold B: {}", a.can_hold(&b)); 
+} 
+
+```
+
+Implement the following:
+
+You are given let scores = vec![("alice", 90), ("bob", 75), ("alice", 82), ("carol", 88), ("bob", 91), ("alice", 79)];
+Using the Entry API on a HashMap<&str, (i32, i32)> (where the value is (total_points, count)),
+compute each student's average.
+Then print a line for each student in alphabetical order, formatted name avg with the average rounded to one decimal place.
+Expected output:
+
+
+alice 83.7
+bob 83.0
+carol 88.0
+
+```rust
+use std::collections::HashMap; 
+
+fn main() {
+    let scores = vec![("alice", 90), ("bob", 75), ("alice", 82), ("carol", 88), ("bob", 91), ("alice", 79)];
+    
+    let mut map: HashMap<&str, (i32, i32)> = HashMap::new(); 
+    
+    for (name, score) in scores {
+        let entry = map.entry(name).or_insert((0, 0));  
+        entry.0 += score; 
+        entry.1 += 1; 
+    }
+    
+    map.iter().for_each(|(name, (score, count))| {
+        println!("{} {:.1}", name, *score as f64 / *count as f64)
+    })
+}
+```
